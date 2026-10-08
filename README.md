@@ -1,4 +1,4 @@
-# Sportmatte
+# Joars Sportmatte
 
 A Swedish math game for kids (6–8 years). Six levels from "5 + 5" up to "33 × 12", a Help button that splits hard problems into steps, badges, and a timed Sportmatte mode where the Rymdtroll steals 5 seconds when you answer wrong. Kids log in with a username and password, so their badges and records follow them between computers, and there is a shared scoreboard per level.
 
