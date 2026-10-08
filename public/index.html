@@ -111,6 +111,9 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
 .hs li .d{font-size:.8rem;color:var(--ink-soft);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .hs li .pos{font-weight:800;color:var(--ink-soft)}
 .hs li.new{background:var(--y)}
+.hs.admin li{grid-template-columns:1.6em 1fr auto auto}
+.delbtn{border:0;background:var(--bg-2);color:var(--rt);font-weight:800;font-size:.75rem;border-radius:999px;padding:1px 7px;line-height:1.5}
+.delbtn.armed{background:var(--rt);color:#fff}
 .empty{color:var(--ink-soft);font-weight:700;font-size:.9rem;display:block}
 
 /* ---------- Equations ---------- */
@@ -531,6 +534,9 @@ const FIREBASE_CONFIG = {
   appId: "1:578783831969:web:a9f0f9b9855853b4a04de0"
 };
 
+/* Accounts that may remove records from the scoreboards (Firebase user UIDs). */
+const ADMIN_UIDS = ['sE6TcKfC2rgOtwPCN56Xdu0d2em2'];
+
 const $=s=>document.querySelector(s);
 const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
 const pick=a=>a[Math.floor(Math.random()*a.length)];
@@ -708,7 +714,7 @@ function confetti(n=170){
 /* ---------- Screens ---------- */
 function show(id){['loading','login','home','play','reward','pause'].forEach(s=>$('#'+s).hidden=s!==id);$('#foot').hidden=id==='play'||id==='loading';try{scrollTo(0,0)}catch(e){}}
 function renderFoot(){
-  $('#whoami').textContent=ME?`Inloggad som ${ME.name}`:(FB?'':'Sparas bara på den här datorn');
+  $('#whoami').textContent=ME?`Inloggad som ${ME.name}${isAdmin()?' (admin)':''}`:(FB?'':'Sparas bara på den här datorn');
   $('#logoutBtn').hidden=!ME;
   $('#demoBtn').textContent=`Demoläge för vuxna: ${DEMO?'på':'av'}`;
   $('#demoflag').hidden=!DEMO;
@@ -717,12 +723,13 @@ function showLogin(){renderFoot();show('login');setTimeout(()=>$('#user').focus(
 function badgeHTML(L,tier,count){
   return `<div class="badge ${tier||'tom'}" style="--c:var(--${L.c})"><span>${L.emoji}</span>${count>1?`<span class="count">×${count}</span>`:''}</div>`;
 }
-function listHTML(rows,hi){
+const isAdmin=()=>!!(ME&&ADMIN_UIDS.includes(ME.uid));
+function listHTML(rows,hi,delKey){
   if(!rows.length)return '<span class="empty">Inget rekord än</span>';
-  return '<ol class="hs">'+rows.map((r,k)=>`<li class="${k===hi?'new':''}"><span class="pos">${k+1}.</span><b>${r.v}</b><span class="d">${esc(r.s)}</span></li>`).join('')+'</ol>';
+  return `<ol class="hs${delKey?' admin':''}">`+rows.map((r,k)=>`<li class="${k===hi?'new':''}"><span class="pos">${k+1}.</span><b>${r.v}</b><span class="d">${esc(r.s)}</span>${delKey?`<button class="delbtn" data-del="${esc(delKey(r,k))}" aria-label="Ta bort rekordet ${r.v}">✕</button>`:''}</li>`).join('')+'</ol>';
 }
 const mineRows=list=>list.map(e=>({v:e.p,s:e.d}));
-const allRows=list=>list.map(e=>({v:e.points,s:e.name}));
+const allRows=list=>list.map(e=>({v:e.points,s:e.name,uid:e.uid}));
 function renderHome(){
   document.querySelectorAll('[data-greet]').forEach(g=>g.textContent=ME?`Hej ${ME.name}!`:'Hej mattesportare!');
   $('#starTotal').textContent=P.stars;$('#roundTotal').textContent=P.rounds;
@@ -751,12 +758,13 @@ function renderHome(){
 async function renderRecords(){
   document.querySelectorAll('#recTabs .tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===recTab)));
   const grid=$('#recGrid'),card=(L,body)=>`<div class="rec" style="--c:var(--${L.c})"><h3>${L.emoji} ${L.name}</h3>${body}</div>`;
-  if(recTab==='mine'){grid.innerHTML=LEVELS.map(L=>card(L,listHTML(mineRows((P.hs[L.id]||[]).slice(0,3)),-1))).join('');return}
+  const adm=isAdmin();
+  if(recTab==='mine'){grid.innerHTML=LEVELS.map(L=>card(L,listHTML(mineRows((P.hs[L.id]||[]).slice(0,3)),-1,adm?((r,k)=>`mine|${L.id}|${k}`):null))).join('');return}
   grid.innerHTML=LEVELS.map(L=>card(L,'<span class="empty">Laddar …</span>')).join('');
   try{
     const all=await Promise.all(LEVELS.map(L=>topBoard(L.id,5)));
     if(recTab!=='all')return;
-    grid.innerHTML=LEVELS.map((L,i)=>card(L,listHTML(allRows(all[i]),all[i].findIndex(e=>ME&&e.uid===ME.uid)))).join('');
+    grid.innerHTML=LEVELS.map((L,i)=>card(L,listHTML(allRows(all[i]),all[i].findIndex(e=>ME&&e.uid===ME.uid),adm?(r=>`board|${L.id}|${r.uid}`):null))).join('');
   }catch(e){grid.innerHTML='<span class="empty">Kunde inte hämta topplistan just nu.</span>'}
 }
 
@@ -921,6 +929,17 @@ function finish(){
 /* ---------- Events ---------- */
 $('#levels').addEventListener('click',e=>{const b=e.target.closest('.level');if(b)startLevel(+b.dataset.i)});
 $('#calmBtn').onclick=()=>{P.sport=!P.sport;save();renderHome()};
+$('#recGrid').addEventListener('click',async e=>{
+  const b=e.target.closest('[data-del]');if(!b||!isAdmin())return;
+  if(!b.classList.contains('armed')){ // first click asks, second click removes
+    document.querySelectorAll('.delbtn.armed').forEach(x=>{x.classList.remove('armed');x.textContent='✕'});
+    b.classList.add('armed');b.textContent='Ta bort?';return}
+  const [kind,lvl,key]=b.dataset.del.split('|');
+  b.disabled=true;b.textContent='…';
+  if(kind==='mine'){const l=P.hs[lvl]||[];l.splice(+key,1);P.hs[lvl]=l;save();renderHome();return}
+  try{await FB.db.collection('boards').doc(lvl).collection('best').doc(key).delete();renderRecords()}
+  catch(err){b.disabled=false;b.textContent='Gick inte';console.warn(err)}
+});
 $('#recTabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(!t)return;recTab=t.dataset.tab;renderRecords()});
 $('#pad').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b)press(b.dataset.k)});
 $('#helpBtn').onclick=()=>openHelp();
