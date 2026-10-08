@@ -44,7 +44,7 @@ Use a **new Firebase project** for Sportmatte. Each Firebase project has its own
    ```bash
    npm install -g firebase-tools
    firebase login
-   # if your project ID isn't exactly "sportmatte", edit .firebaserc first
+
    firebase deploy --only firestore:rules,hosting
    ```
    The game is then live at `https://<project-id>.web.app`.

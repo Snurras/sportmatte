@@ -417,27 +417,14 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
    (Project settings → Your apps → Web app → firebaseConfig).
    Leave as null to run without login (saved on this computer only).
    ========================================================= */
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const FIREBASE_CONFIG = {
   apiKey: "AIzaSyC6Jn6Z5ouHJ4Nd0H9ezbz0gq6aFXQgQ6U",
   authDomain: "sportmatte-89153.firebaseapp.com",
   projectId: "sportmatte-89153",
   storageBucket: "sportmatte-89153.firebasestorage.app",
   messagingSenderId: "578783831969",
-  appId: "1:578783831969:web:a9f0f9b9855853b4a04de0",
-  measurementId: "G-YC17WYV5H7"
+  appId: "1:578783831969:web:a9f0f9b9855853b4a04de0"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 const $=s=>document.querySelector(s);
 const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
