@@ -184,7 +184,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
   background:repeating-conic-gradient(var(--r) 0 15deg,var(--o) 15deg 30deg,var(--y) 30deg 45deg,var(--g) 45deg 60deg,var(--b) 60deg 75deg,var(--v) 75deg 90deg);
   -webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:spin 18s linear infinite;opacity:.85}
 @keyframes spin{to{transform:rotate(1turn)}}
-.burstwrap .badge{width:55%;font-size:clamp(3.5rem,16vw,5.5rem);border-width:12px;box-shadow:0 0 0 8px var(--c),0 10px 0 8px rgba(74,24,56,.15);animation:pop .7s cubic-bezier(.3,1.6,.5,1)}
+.burstwrap .badge{width:calc(min(80vw,280px) * .55);font-size:clamp(3.5rem,16vw,5.5rem);border-width:12px;box-shadow:0 0 0 8px var(--c),0 10px 0 8px rgba(74,24,56,.15);animation:pop .7s cubic-bezier(.3,1.6,.5,1)}
 @keyframes pop{from{transform:scale(.2) rotate(-30deg)}}
 .reward-title{font-size:clamp(2.2rem,9vw,3.4rem);color:var(--pink-deep);font-weight:800}
 .bigstars{font-size:clamp(2rem,9vw,2.8rem);letter-spacing:4px;color:var(--gold)}
@@ -219,6 +219,99 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
 .foot{margin-top:34px;text-align:center;font-size:.8rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px}
 .linkbtn{background:none;border:0;color:var(--ink-soft);font-weight:700;text-decoration:underline;padding:4px;font-size:.8rem}
 .demoflag{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:15;background:var(--night);color:var(--sun);font-weight:800;font-size:.85rem;border-radius:999px;padding:6px 14px}
+
+#rBadge{width:100%;display:grid;place-items:center}
+.reward-main,.reward-side{display:grid;justify-items:center;gap:14px;width:100%}
+.lv-meta{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+
+/* ---------- Computer screens: everything on one screen, no scrolling ---------- */
+@media (min-width:900px) and (orientation:landscape){
+  .app{max-width:1360px;padding-block:10px 30px;min-height:100dvh;display:flex;flex-direction:column}
+  .app>section:not([hidden]){flex:1}
+  .foot{position:fixed;right:14px;bottom:calc(6px + env(safe-area-inset-bottom,0px));margin:0;z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);border-radius:999px;padding:0 8px}
+  .demoflag{left:14px;transform:none}
+
+  /* hero, compact */
+  .hero80{margin-top:0}
+  .hero-inner{padding:12px 14px 6px;grid-template-columns:minmax(0,1fr) minmax(0,40%)}
+  .hero-art{display:flex;justify-content:flex-end}
+  .logo{font-size:clamp(2.1rem,2.2vw + 2.2vh,3.6rem)}
+  .tagline{font-size:.75rem}
+  .greet{margin:8px 0 10px;font-size:clamp(1.1rem,1vw + 1vh,1.5rem)}
+  .hero-art svg{height:min(27vh,240px);width:auto;max-width:100%}
+
+  /* home: three columns on wide screens */
+  #home{display:grid;grid-template-columns:minmax(300px,0.9fr) 1.3fr;gap:16px;align-items:start}
+  #home .col-left{display:grid;gap:14px;grid-row:span 2;min-width:0}
+  #home .levels-wrap,#home #records{min-width:0}
+  #home .panelcard{margin-top:0;padding:14px}
+  #home .levels-wrap{margin-top:0}
+  .stats{margin-bottom:10px}
+  .stat{font-size:1.15rem;padding:4px 12px 4px 8px}
+  .shelf{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 6px}
+  .shelf .badge{width:clamp(44px,6vh,60px);font-size:clamp(20px,3vh,28px);border-width:5px;box-shadow:0 0 0 3px var(--c),0 4px 0 3px rgba(74,24,56,.12)}
+  .slot-name{font-size:.72rem}
+  .trophies{margin-top:10px;gap:6px}
+  .trophy{font-size:.75rem;padding:4px 10px 4px 6px}.trophy .e{font-size:1.1rem}
+  .label{font-size:1.15rem;margin-bottom:8px}
+  .levels-head{margin-bottom:8px}
+  .calm{font-size:1rem;padding:5px 8px 5px 14px}
+  .levels{grid-template-columns:repeat(3,1fr);gap:12px}
+  .level{padding:clamp(8px,1.4vh,14px) 8px;gap:4px;border-radius:22px;min-height:clamp(130px,26vh,300px);align-content:center;padding-top:clamp(28px,4vh,40px)}
+  .level .eq{font-size:clamp(1.3rem,0.7vw + 2vh,2.6rem);flex-wrap:nowrap}
+  .lv-name{font-size:.98rem}
+  .lv-num{width:24px;height:24px;font-size:.85rem}
+  .lv-emoji{font-size:1.15rem}
+  #records{margin-top:14px;padding:14px}
+  .tabs{margin-bottom:8px}.tab{padding:4px 14px;font-size:.92rem}
+  .rec-grid{grid-template-columns:repeat(3,1fr);gap:10px}
+  .rec{padding:8px 10px;border-width:3px}
+  .rec h3{font-size:.92rem;margin-bottom:4px}
+  .rec{min-height:clamp(96px,16vh,150px)}
+  .hs li{padding:1px 6px;gap:6px}.hs li b{font-size:1rem}
+
+  /* play: question left, number pad right */
+  #play:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);gap:clamp(20px,3vw,48px);align-items:center;align-content:center}
+  .playmain{min-width:0}
+  .qcard{padding:clamp(12px,2.2vh,22px) 14px}
+  .qcard>.eq{font-size:clamp(2.4rem,4vw + 3vh,5.4rem)}
+  .qcard.dim>.eq{font-size:clamp(1.6rem,2vw + 2vh,2.8rem)}
+  .step{padding:4px 10px}
+  .step .eq{font-size:clamp(1.4rem,1.4vw + 2vh,2.4rem)}
+  .steps{gap:6px}
+  .feedback{margin-top:4px;min-height:2em}
+  .helprow{min-height:56px}
+  .pad{margin:0 auto;max-width:400px;gap:clamp(8px,1.4vh,14px)}
+  .key{min-height:clamp(54px,11vh,88px);font-size:clamp(1.8rem,4vh,2.6rem)}
+  .troll .cd{font-size:clamp(2.6rem,7vh,4rem)}
+
+  /* reward: badge left, scoreboards and buttons right */
+  .reward-grid:not(:empty){grid-template-columns:1fr 1fr;align-items:center;padding-top:0;min-height:calc(100dvh - 60px);gap:24px}
+  .burstwrap{width:min(32vh,260px)}
+  .burstwrap .badge{width:calc(min(32vh,260px) * .55);font-size:min(9vh,4.5rem)}
+  .reward-title{font-size:clamp(2rem,5vh,3.2rem)}
+  .bigstars{font-size:clamp(1.8rem,4.5vh,2.6rem)}
+  .reward-score{font-size:clamp(1.4rem,3.4vh,2rem)}
+  .pill{font-size:1rem;padding:6px 14px}
+  .reward-boards{grid-template-columns:1fr 1fr;max-width:none}
+  .choice{min-width:104px;padding:10px 14px;font-size:1.05rem}.choice .e{font-size:2rem}
+
+  /* login: poster left, form right */
+  #login:not([hidden]){display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;align-content:center}
+  #login .loginbox{margin:0}
+  .login-hero .hero-art svg{height:min(40vh,320px)}
+  .login-hero .logo{font-size:clamp(3rem,3vw + 3vh,5rem)}
+}
+@media (min-width:900px) and (max-width:1179px) and (orientation:landscape){
+  .level,.rec{min-height:0}
+  .hero-art svg{height:min(22vh,180px)}
+}
+@media (min-width:1180px) and (orientation:landscape){
+  #home{grid-template-columns:minmax(320px,1fr) 1.45fr minmax(300px,1fr)}
+  #home #records{margin-top:0;grid-column:3;grid-row:1 / span 2}
+  #home .levels-wrap{grid-column:2;grid-row:1 / span 2}
+  .rec-grid{grid-template-columns:repeat(2,1fr)}
+}
 
 @media (max-width:420px){
   .key{min-height:60px;font-size:2rem}
@@ -300,7 +393,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
 
   <!-- LOGIN -->
   <section id="login" hidden>
-    <div data-hero></div>
+    <div class="login-hero"><div data-hero></div></div>
     <form class="loginbox" id="loginForm" autocomplete="on">
       <label for="user">Användarnamn</label>
       <input id="user" name="username" autocomplete="username" maxlength="16" required>
@@ -317,6 +410,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
 
   <!-- HOME -->
   <section id="home" hidden>
+    <div class="col-left">
     <div data-hero></div>
 
     <section class="panelcard" aria-labelledby="mina">
@@ -328,6 +422,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
       <div class="shelf" id="shelf"></div>
       <div class="trophies" id="trophies"></div>
     </section>
+    </div>
 
     <section class="levels-wrap" aria-labelledby="valj">
       <div class="levels-head">
@@ -349,6 +444,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
 
   <!-- PLAY -->
   <section id="play" hidden>
+    <div class="playmain">
     <div class="topbar">
       <button class="iconbtn" id="homeBtn" aria-label="Hem">🏠</button>
       <div class="dots" id="dots" aria-label="Frågor"></div>
@@ -365,6 +461,8 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
     </div>
     <div class="feedback" id="fb" aria-live="polite"></div>
     <div class="helprow"><button class="helpbtn" id="helpBtn" hidden>🛟 Hjälp</button></div>
+    </div>
+    <div class="playside">
     <div class="padwrap" id="padwrap">
       <div class="pad" id="pad">
         <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
@@ -378,18 +476,23 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
       <button class="pbtn" id="demoRight">✨ Svara rätt</button>
       <button class="pbtn" id="demoWrong">👾 Svara fel</button>
     </div>
+    </div>
   </section>
 
   <!-- REWARD -->
   <section id="reward" hidden>
-    <div class="center">
+    <div class="center reward-grid">
+      <div class="reward-main">
       <div class="burstwrap"><div class="burst"></div><div id="rBadge"></div></div>
       <h2 class="reward-title" id="rTitle"></h2>
       <div class="bigstars" id="rStars"></div>
       <div class="reward-score" id="rScore" hidden></div>
       <div class="news" id="rNews"></div>
+      </div>
+      <div class="reward-side">
       <div class="reward-boards" id="rBoards" hidden></div>
       <div class="choices" id="rChoices"></div>
+      </div>
     </div>
   </section>
 
@@ -634,8 +737,8 @@ function renderHome(){
       <span class="eq">${eqHTML(L.sample)}</span>
       <span class="lv-name">${L.name}</span>
       ${L.helps?'<span class="help-tag">🛟 med hjälp</span>':''}
-      <span class="lv-stars">${'★'.repeat(b)}<span class="off">${'★'.repeat(5-b)}</span></span>
-      ${P.sport?`<span class="lv-best">🏆 ${top?top.p:'–'}</span>`:''}
+      <span class="lv-meta"><span class="lv-stars">${'★'.repeat(b)}<span class="off">${'★'.repeat(5-b)}</span></span>
+      ${P.sport?`<span class="lv-best">🏆 ${top?top.p:'–'}</span>`:''}</span>
       ${ok?'':'<span class="lock">🔒</span>'}</button>`;
   }).join('');
   $('#records').hidden=!P.sport;
