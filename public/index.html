@@ -409,6 +409,41 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
   .badge{width:60px;font-size:28px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ---------- Home: Estimera mera row, Rekordtavlan on its own row below ---------- */
+.estwrap{margin-top:22px}
+.esthint{font-weight:700;color:var(--ink-soft);font-size:.9rem}
+.estlevels{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.estlevel{position:relative;display:grid;gap:4px;justify-items:center;text-align:center;padding:30px 8px 12px;border-radius:22px;border:4px solid #8E1F7A;color:#fff;
+  background:linear-gradient(#1A0533 0%,#3D0E63 55%,#8E1F7A 100%);box-shadow:0 6px 0 #5B157A;transition:transform .08s}
+.estlevel:active{transform:translateY(5px);box-shadow:0 1px 0 #5B157A}
+.estlevel .lv-num{background:var(--neon);color:var(--night)}
+.estlevel .eq{font-size:clamp(1.3rem,1vw + 1.4vh,2rem);flex-wrap:nowrap}
+.estlevel .eq .op{color:#fff}
+.estlevel .lv-name{color:var(--sun)}
+.estlevel .lv-best{color:#E9D5FF}
+.estlevel .off{color:#6B3A8A}
+.estlevel.locked{filter:grayscale(.7);opacity:.55}
+.estlvl{justify-self:start;background:rgba(255,255,255,.16);border-radius:999px;padding:2px 12px;font-weight:800;font-size:.9rem}
+#records{margin-top:22px}
+.shelf-sub{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--vt);margin:12px 0 6px}
+@media (min-width:900px) and (orientation:landscape){
+  html body #home{grid-template-columns:minmax(300px,.8fr) 2fr;align-items:start}
+  html body #home .col-left{grid-column:1;grid-row:1 / span 2}
+  html body #home .levels-wrap{grid-column:2;grid-row:1;margin-top:0}
+  html body #home .estwrap{grid-column:2;grid-row:2;margin-top:4px}
+  html body #home #records{grid-column:1 / -1;grid-row:3;margin-top:8px}
+  html body #home .rec-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+  html body .level{min-height:clamp(112px,21vh,240px)}
+  html body .estlevels{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+  html body .estlevel{padding:28px 6px 10px}
+  html body .shelf{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px 4px}
+  html body .shelf .badge{width:clamp(38px,5.4vh,52px);font-size:clamp(18px,2.6vh,24px);border-width:4px}
+  html body .slot-name{font-size:.66rem}
+  html body #estShelf{grid-template-columns:repeat(6,minmax(0,1fr))}
+  html body .shelf-sub{margin:8px 0 4px}
+  html body .foot{position:static;margin-top:14px;background:none;justify-content:flex-end}
+}
 </style>
 </head>
 <body>
@@ -510,6 +545,8 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
         <div class="stat">🎈 <span id="roundTotal">0</span> <small>rundor</small></div>
       </div>
       <div class="shelf" id="shelf"></div>
+      <div class="shelf-sub">🎣 Estimera mera</div>
+      <div class="shelf" id="estShelf"></div>
       <div class="trophies" id="trophies"></div>
     </section>
     </div>
@@ -520,6 +557,11 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
         <button class="calm" id="calmBtn" aria-pressed="false">😌 Ingen stress <span class="sw"></span></button>
       </div>
       <div class="levels" id="levels"></div>
+    </section>
+
+    <section class="levels-wrap estwrap" id="estSection" aria-labelledby="estH">
+      <div class="levels-head"><h2 class="label" id="estH">🎣 Estimera mera</h2><span class="esthint">Fånga rätt svar med håven. Ingen uppdelning, bara smart tänkande!</span></div>
+      <div class="estlevels" id="estLevels"></div>
     </section>
 
     <section class="panelcard" id="records" aria-labelledby="rek">
@@ -618,6 +660,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
             <button class="iconbtn" id="estHome" aria-label="Hem">🏠</button>
             <span class="esttitle">Estimera mera</span>
           </div>
+          <span class="estlvl" id="estLvl"></span>
           <div class="dots" id="estDots"></div>
         </div>
         <div class="estprob">
@@ -756,8 +799,9 @@ const LEVELS=[
     let a,b;if(Math.random()<.2){a=33;b=12}else{a=rnd(21,45);b=rnd(11,15)}
     return {t:[a,'×',b],ans:a*b,help:splitHelp(a,b)};}},
   {id:'strategi',name:'Strategimästare',c:'pk',emoji:'🧠',sample:[12,'×',25],custom:'strat',tag:'din egen strategi'},
-  {id:'estimera',name:'Estimera mera',c:'nt',emoji:'🎣',sample:[8,'×',8],custom:'est',tag:'fånga rätt svar',open:true},
 ];
+LEVELS.slice(0,6).forEach((B,k)=>LEVELS.push({id:'est-'+B.id,name:'Estimera '+B.name.toLowerCase(),short:B.name,slot:B.name,c:'nt',emoji:'🎣',sample:B.sample,custom:'est',est:true,base:B,estIdx:k}));
+const FIRST_EST=LEVELS.findIndex(l=>l.est);
 function makeRound(L){const seen=new Set(),qs=[];let g=0;
   while(qs.length<ROUND&&g++<200){const q=L.gen(),k=q.t.join();if(!seen.has(k)){seen.add(k);qs.push(q)}}return qs}
 
@@ -775,7 +819,7 @@ function save(){
     saveTimer=setTimeout(()=>{FB.db.collection('users').doc(ME.uid).set({name:ME.name,progress:P},{merge:true}).catch(e=>console.warn('Kunde inte spara',e))},600);
   }else{try{localStorage.setItem(LOCAL_KEY,JSON.stringify(P))}catch(e){}}
 }
-const unlocked=i=>DEMO||i<P.unlocked||!!LEVELS[i].open;
+const unlocked=i=>{const L=LEVELS[i];if(DEMO)return true;return L.est?L.estIdx<(P.estUnlocked||1):i<P.unlocked};
 const TIER_NAME={guld:'Guldmärke',silver:'Silvermärke',brons:'Bronsmärke'};
 function bestTier(id){const t=P.tiers[id]||{};return t.guld?'guld':t.silver?'silver':t.brons?'brons':null}
 const TROPHIES=[
@@ -784,7 +828,7 @@ const TROPHIES=[
   {id:'gold',e:'🥇',name:'Första guldet',test:()=>Object.values(P.tiers).some(t=>t.guld)},
   {id:'s25',e:'⭐',name:'25 stjärnor',test:()=>P.stars>=25},
   {id:'s100',e:'🌟',name:'100 stjärnor',test:()=>P.stars>=100},
-  {id:'rainbow',e:'🌈',name:'Regnbågsmästare',test:()=>LEVELS.every(l=>(P.tiers[l.id]||{}).guld)},
+  {id:'rainbow',e:'🌈',name:'Regnbågsmästare',test:()=>LEVELS.filter(l=>!l.est).every(l=>(P.tiers[l.id]||{}).guld)},
 ];
 
 /* ---------- Firebase ---------- */
@@ -892,12 +936,13 @@ function renderHome(){
   document.querySelectorAll('[data-greet]').forEach(g=>g.textContent=ME?`Hej ${ME.name}!`:'Hej mattesportare!');
   $('#starTotal').textContent=P.stars;$('#roundTotal').textContent=P.rounds;
   $('#calmBtn').setAttribute('aria-pressed',String(!P.sport));
-  $('#shelf').innerHTML=LEVELS.map(L=>{
+  $('#shelf').innerHTML=LEVELS.filter(L=>!L.est).map(L=>{
     const t=bestTier(L.id),c=t?Object.values(P.tiers[L.id]).reduce((a,b)=>a+b,0):0;
-    return `<div class="slot">${badgeHTML(L,t,c)}<span class="slot-name">${L.name}</span></div>`;
+    return `<div class="slot">${badgeHTML(L,t,c)}<span class="slot-name">${L.slot||L.name}</span></div>`;
   }).join('');
   $('#trophies').innerHTML=TROPHIES.map(T=>`<div class="trophy ${P.trophies[T.id]?'':'no'}"><span class="e">${T.e}</span>${T.name}</div>`).join('');
   $('#levels').innerHTML=LEVELS.map((L,i)=>{
+    if(L.est)return '';
     const ok=unlocked(i),b=P.best[L.id]||0,top=(P.hs[L.id]||[])[0];
     return `<button class="level ${ok?'':'locked'}" data-i="${i}" style="--c:var(--${L.c})" aria-label="Nivå ${i+1}: ${L.name}${ok?'':' (låst)'}">
       <span class="lv-num">${i+1}</span><span class="lv-emoji">${L.emoji}</span>
@@ -911,7 +956,7 @@ function renderHome(){
   $('#records').hidden=!P.sport;
   $('#recTabs').hidden=!FB;
   if(!FB)recTab='mine';
-  renderRecords();renderFoot();show('home');
+  renderEstLevels();renderRecords();renderFoot();show('home');
 }
 async function renderRecords(){
   document.querySelectorAll('#recTabs .tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===recTab)));
@@ -1053,7 +1098,7 @@ function finish(){
   const t=P.tiers[L.id]=P.tiers[L.id]||{};t[tier]=(t[tier]||0)+1;
   P.best[L.id]=Math.max(P.best[L.id]||0,s);
   let opened=false;
-  if(s>=3&&R.level+1===P.unlocked&&P.unlocked<LEVELS.length){P.unlocked++;opened=!DEMO}
+  const LL=LEVELS[R.level];if(LL.est){if(s>=3&&LL.estIdx+1===(P.estUnlocked||1)&&LL.estIdx<5){P.estUnlocked=(P.estUnlocked||1)+1;opened=!DEMO}}else if(s>=3&&R.level+1===P.unlocked&&P.unlocked<FIRST_EST){P.unlocked++;opened=!DEMO}
   const newT=TROPHIES.filter(T=>!P.trophies[T.id]&&T.test());newT.forEach(T=>P.trophies[T.id]=Date.now());
   if(DEMO){/* show everything, keep nothing */}else save();
 
@@ -1078,7 +1123,7 @@ function finish(){
       }).catch(()=>{const el=$('#rAll');if(el)el.querySelector('.empty').textContent='Kunde inte hämta topplistan.'});
     }
   }
-  const nextOk=R.level+1<LEVELS.length&&unlocked(R.level+1)&&s>=3;
+  const nextOk=R.level+1<LEVELS.length&&!!LEVELS[R.level+1].est===!!LEVELS[R.level].est&&unlocked(R.level+1)&&s>=3;
   $('#rChoices').innerHTML=
     (nextOk?`<button class="choice main" data-act="next"><span class="e">🚀</span>Nästa nivå</button>`:'')+
     `<button class="choice ${nextOk?'':'main'}" data-act="again"><span class="e">🔁</span>Igen</button>`+
@@ -1244,13 +1289,12 @@ $('#strat').addEventListener('click',e=>{
 /* =========================================================
    Estimera mera: catch the right answer with the net
    ========================================================= */
-const EST_PROBS=[[8,'×',8],[6,'×',7],[12,'×',9],[25,'+',38],[9,'×',9],[48,'÷',6],[7,'×',8],[45,'+',47],[13,'×',7],[23,'+',48],[10,'×',50],[20,'×',30],[15,'×',4],[25,'×',4],[11,'×',11],[36,'÷',4]];
 const EST_COLS=[{bg:'#FF3E9A',fg:'#FFFFFF'},{bg:'#3FE0FF',fg:'#24083F'},{bg:'#FFE14D',fg:'#24083F'}];
 const EST_TROLL='<svg viewBox="0 0 64 64" aria-hidden="true"><line x1="24" y1="14" x2="17" y2="3" stroke="#2E8B3E" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="3" r="3.5" fill="#FF3E9A"/><line x1="40" y1="14" x2="47" y2="3" stroke="#2E8B3E" stroke-width="3" stroke-linecap="round"/><circle cx="48" cy="3" r="3.5" fill="#FF3E9A"/><path d="M13 30 L1 20 L12 41 Z M51 30 L63 20 L52 41 Z" fill="#4CC25C"/><ellipse cx="32" cy="36" rx="21" ry="24" fill="#5BD16B"/><circle cx="23" cy="30" r="6.5" fill="#fff"/><circle cx="41" cy="30" r="6.5" fill="#fff"/><circle cx="32" cy="21" r="5" fill="#fff"/><circle cx="24" cy="31" r="3" fill="#2A1030"/><circle cx="40" cy="31" r="3" fill="#2A1030"/><circle cx="32" cy="22" r="2.2" fill="#2A1030"/><path d="M20 43 Q32 57 44 43 Q32 48 20 43 Z" fill="#2A1030"/><path d="M25 45 L27 50 L29 46 Z M35 46 L37 50 L39 45 Z" fill="#fff"/></svg>';
-const estCalc=p=>calc(p[0],p[1],p[2]);
+const estCalc=q=>q.ans;
 // Wrong answers look as "real" as the right one: round only when the right answer is round.
 function estFake(ans,f,up){
-  const step=ans%10===0?10:ans%5===0?5:1;
+  const step=ans<20?1:ans%10===0?10:ans%5===0?5:1;
   let v=Math.round(ans*f);
   if(step>1)v=Math.round(v/step)*step;
   else{let k=1;while(v%5===0&&k<8){v+=(k%2?1:-2)*(up?1:-1);k++}}
@@ -1272,7 +1316,7 @@ function estDims(){
 }
 function startEst(i){
   if(!$('#estStars').childElementCount)$('#estStars').innerHTML=Array.from({length:26},(_,j)=>`<span style="left:${(j*37)%97+1}%;top:${(j*23)%55+14}%;width:${j%3?2:4}px;height:${j%3?2:4}px;opacity:${j%2?.8:.45}"></span>`).join('');
-  R={level:i,kind:'est',qs:shuffle(EST_PROBS).slice(0,ROUND),i:0,stars:0,res:[],sport:P.sport,points:0,phase:'start',items:[],netX:null,timers:[],tries:0,caught:null,troll:false,clock:0,cd:0,msg:null};
+  R={level:i,kind:'est',qs:makeRound(LEVELS[i].base),i:0,stars:0,res:[],sport:P.sport,points:0,phase:'start',items:[],netX:null,timers:[],tries:0,caught:null,troll:false,clock:0,cd:0,msg:null};
   $('#estBalls').innerHTML='';$('#estStart').hidden=false;
   show('est');estRender();$('#estField').focus();
   if(!estRaf){estLast=0;estRaf=requestAnimationFrame(estTick)}
@@ -1306,7 +1350,7 @@ function estCatch(it,now){
   it.el.remove();R.items=R.items.filter(x=>x!==it);R.caught=it;
   if(it.ok){
     R.phase='caught';R.res.push(true);R.stars++;
-    let text=`${p[0]} ${p[1]} ${p[2]} = ${ans}`;
+    let text=`${p.t.join(' ')} = ${ans}`;
     if(R.sport){const sec=(now-R.qStart)/1000,pts=Math.max(10,Math.round(100-2*sec));R.clock=sec;R.points+=pts;text=`+${pts} poäng · `+text}
     R.msg={title:'Snabbt svarat!',text,bg:'#14935B'};ding();confetti(40);estRender();estLater(estNext,2000);return;
   }
@@ -1348,7 +1392,8 @@ function estRender(){
   if(!R||R.kind!=='est')return;
   const d=estDims(),p=R.qs[Math.min(R.i,ROUND-1)];
   $('#estDots').innerHTML=Array.from({length:ROUND},(_,k)=>k<R.res.length?`<span class="dot ${R.res[k]?'':'miss'}">${R.res[k]?'★':'•'}</span>`:`<span class="dot ${k===R.i&&R.phase!=='start'?'now':''}"></span>`).join('');
-  $('#estEq').innerHTML=eqHTML(p)+'<span class="op">=</span><span class="op" style="color:var(--line)">?</span>';
+  $('#estLvl').textContent=LEVELS[R.level].short;
+  $('#estEq').innerHTML=eqHTML(p.t)+'<span class="op">=</span><span class="op" style="color:var(--line)">?</span>';
   $('#estStats').style.visibility=R.sport?'visible':'hidden';
   $('#estScore').textContent=R.points;$('#estClock').classList.toggle('hot',R.phase==='troll');
   if(!R.sport||R.phase!=='play')$('#estClock').textContent=fmt(R.clock);
@@ -1373,6 +1418,25 @@ $('#estField').addEventListener('pointermove',estPointer);
 $('#estField').addEventListener('pointerdown',estPointer);
 $('#estGo').onclick=estStart;
 $('#estHome').onclick=()=>{estStop();R=null;renderHome()};
+
+/* ---------- Estimera mera levels on the home page ---------- */
+function renderEstLevels(){
+  $('#estShelf').innerHTML=LEVELS.filter(L=>L.est).map(L=>{
+    const t=bestTier(L.id),c=t?Object.values(P.tiers[L.id]).reduce((a,b)=>a+b,0):0;
+    return `<div class="slot">${badgeHTML(L,t,c)}<span class="slot-name">${L.short}</span></div>`;
+  }).join('');
+  $('#estLevels').innerHTML=LEVELS.map((L,i)=>{
+    if(!L.est)return '';
+    const ok=unlocked(i),b=P.best[L.id]||0,top=(P.hs[L.id]||[])[0];
+    return `<button class="estlevel ${ok?'':'locked'}" data-i="${i}" aria-label="Estimera mera nivå ${L.estIdx+1}: ${L.short}${ok?'':' (låst)'}">
+      <span class="lv-num">${L.estIdx+1}</span>
+      <span class="eq">${eqHTML(L.sample)}</span>
+      <span class="lv-name">${L.short}</span>
+      <span class="lv-meta"><span class="lv-stars">${'★'.repeat(b)}<span class="off">${'★'.repeat(5-b)}</span></span>${P.sport?`<span class="lv-best">🏆 ${top?top.p:'–'}</span>`:''}</span>
+      ${ok?'':'<span class="lock">🔒</span>'}</button>`;
+  }).join('');
+}
+$('#estLevels').addEventListener('click',e=>{const b=e.target.closest('.estlevel');if(b)startLevel(+b.dataset.i)});
 
 /* ---------- Events ---------- */
 $('#levels').addEventListener('click',e=>{const b=e.target.closest('.level');if(b)startLevel(+b.dataset.i)});
