@@ -17,7 +17,7 @@
   --r:#FF595E; --o:#FF9F1C; --y:#FFCA3A; --g:#38C98A; --b:#3FA9F5; --v:#9B5DE5;
   --rt:#E0353B; --ot:#E2700A; --yt:#C08600; --gt:#14935B; --bt:#1474C4; --vt:#7536CF;
   --gold:#F6B92B; --silver:#B6C2D4; --bronze:#D98A4E;
-  --night:#24083F; --neon:#3FE0FF; --sun:#FFE14D;
+  --night:#24083F; --neon:#3FE0FF; --sun:#FFE14D; --pk:#FF3E9A; --nt:#5B157A;
   --retro:"Righteous","Baloo 2",system-ui,sans-serif;
   --display:"Baloo 2","Comic Sans MS","Chalkboard SE",system-ui,sans-serif;
   --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -135,6 +135,91 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
 .dot.now{border-color:var(--pink);animation:pulse 1.2s ease-in-out infinite}
 .dot.miss{color:var(--silver)}
 @keyframes pulse{50%{transform:scale(1.15)}}
+/* ---------- Test build ---------- */
+.testflag{position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:40;background:var(--y);color:var(--ink);font-weight:800;font-size:.75rem;letter-spacing:.06em;border-radius:0 0 12px 12px;padding:2px 12px;pointer-events:none}
+.help-tag.new{background:var(--pink);color:#fff}
+
+/* ---------- Strategimästare ---------- */
+.stepsbar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.stepsbar span{border-radius:999px;padding:4px 14px;font-weight:800;font-size:.9rem;background:var(--card);color:var(--ink-soft)}
+.stepsbar span.done{background:#D8F3E6;color:var(--gt)}
+.stepsbar span.now{background:var(--pink);color:#fff}
+.scard{gap:12px}
+.scard>.eq{font-size:clamp(2.5rem,4vw + 3vh,5rem)}
+.scard>.eq.sm{font-size:clamp(1.8rem,2vw + 2vh,3rem)}
+.choose2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bigchoice{display:grid;justify-items:center;gap:4px;border:4px solid var(--pink);background:var(--bg-2);border-radius:26px;padding:16px 10px;box-shadow:0 6px 0 var(--pink);color:var(--ink)}
+.bigchoice b{font-family:var(--display);font-size:1.7rem}
+.bigchoice small{font-weight:700;color:var(--ink-soft);font-size:.95rem}
+.bigchoice .e{font-size:2.4rem;line-height:1}
+.bigchoice.blue{border-color:var(--b);background:#F2F9FF;box-shadow:0 6px 0 var(--b)}
+.bigchoice:active{transform:translateY(4px);box-shadow:none}
+.srows{display:grid;gap:8px}
+.srow{display:flex;align-items:center;gap:10px}
+.srow .spacer{width:112px;flex:none}
+.signpick{display:flex;gap:6px;flex:none;border-radius:20px;padding:3px}
+.signpick.pickme{background:var(--y);animation:pickglow 1.2s ease-in-out infinite}
+@keyframes pickglow{50%{box-shadow:0 0 0 6px rgba(255,202,58,.45)}}
+.signbtn{width:50px;height:50px;flex:none;border-radius:14px;border:3px solid var(--line);background:var(--card);color:var(--ink-soft);font-family:var(--display);font-weight:800;font-size:2rem;line-height:1}
+.signbtn.sgn-plus.on{border-color:var(--pink-deep);background:var(--pink);color:#fff}
+.signbtn.sgn-minus.on{border-color:var(--bt);background:var(--b);color:#fff}
+.sbox{flex:1;min-width:0;height:56px;text-align:left;padding:0 16px;border-radius:18px;border:4px solid var(--line);background:var(--card);font-family:var(--display);font-weight:800;font-size:2rem;color:var(--ink);white-space:nowrap;overflow:hidden}
+.sbox.on{border-style:dashed;border-color:var(--pink);background:var(--bg-2);animation:blink 1.1s steps(2) infinite}
+.sbox.empty{font-size:1.05rem;color:#C9A3B8}
+.rmbtn{width:40px;height:40px;flex:none;border:0;background:none;color:var(--ink-soft);font-weight:800;font-size:1.2rem}
+.sactions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.addrow{border:3px dashed var(--line);background:none;border-radius:16px;padding:8px 16px;font-weight:800;color:var(--ink-soft)}
+.checkbtn{border:0;border-radius:18px;padding:12px 22px;background:var(--pink);color:#fff;font-family:var(--display);font-weight:800;font-size:1.3rem;box-shadow:0 5px 0 var(--pink-deep)}
+.checkbtn:active{transform:translateY(4px);box-shadow:none}
+.smart{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--gt)}
+.solverow{display:flex;align-items:center;justify-content:center;gap:12px;border-radius:20px;padding:2px 12px;border:3px solid transparent}
+.solverow .eq{font-size:clamp(1.5rem,1.3vw + 2vh,2.4rem);flex-wrap:nowrap}
+.solverow.now{border-style:dashed;border-color:var(--pink);background:var(--bg-2)}
+.solverow.done{background:#E6F7EF}
+.solverow.wait{opacity:.45}
+.solverow.comb{border-top:3px solid var(--line);margin-top:4px}
+.solverow.comb.now{border:3px dashed var(--pink)}
+.textlink{border:0;background:none;color:var(--pink-deep);font-weight:800;text-decoration:underline;padding:4px}
+.padhint{margin:10px 0 0;text-align:center;font-weight:700;color:var(--ink-soft)}
+.key.times{background:#FFF7D6;box-shadow:0 6px 0 #F2C94C}
+
+/* ---------- Estimera mera ---------- */
+.estfield{position:relative;height:calc(100dvh - 24px);min-height:460px;border-radius:28px;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;color:#fff;outline:none;
+  background:linear-gradient(#1A0533 0%,#3D0E63 45%,#8E1F7A 75%,#FF3E9A 100%)}
+.estsun{position:absolute;left:50%;top:48%;width:min(62vh,520px);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:linear-gradient(var(--sun),var(--pink));opacity:.35}
+.estfloor{position:absolute;left:-10%;right:-10%;bottom:0;height:24%;background-color:#1A0533;background-image:linear-gradient(var(--neon) 2px,transparent 2px),linear-gradient(90deg,var(--neon) 2px,transparent 2px);background-size:60px 32px;transform:perspective(240px) rotateX(50deg);transform-origin:bottom;opacity:.85}
+.eststars span{position:absolute;border-radius:50%;background:#fff}
+.esthud{position:absolute;left:14px;right:14px;top:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;z-index:3;pointer-events:none}
+.esthud button{pointer-events:auto}
+.esthud-side{display:grid;gap:8px;width:min(24vw,260px)}
+.esthud-side.right{display:flex;justify-content:flex-end;gap:16px}
+.esttitle{font-family:var(--retro);font-size:clamp(1.2rem,1.4vw + 1vh,1.9rem);color:var(--sun);transform:skew(-8deg);text-shadow:3px 3px 0 var(--neon);white-space:nowrap}
+.esttitle.big{font-size:clamp(2.2rem,3vw + 2vh,3.4rem);color:var(--pink);text-shadow:3px 3px 0 var(--neon)}
+.estprob{background:#fff;color:var(--ink);border-radius:24px;padding:8px 26px 10px;box-shadow:0 6px 0 var(--pink-deep);text-align:center}
+.estprob .eq{font-size:clamp(2rem,2.5vw + 3vh,4rem)}
+.estprob small{display:block;font-weight:800;color:var(--ink-soft);font-size:.85rem}
+.estnum{display:grid;justify-items:end}
+.estnum small{font-weight:800;font-size:.8rem;letter-spacing:.12em;color:var(--neon)}
+.estnum b{font-family:var(--display);font-size:clamp(1.8rem,2vw + 1vh,2.6rem);line-height:1;font-variant-numeric:tabular-nums}
+.estnum b.hot{color:var(--sun)}
+.eball{position:absolute;left:0;top:0;border-radius:50%;border:5px solid #fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;will-change:transform;z-index:2;box-sizing:border-box;line-height:1}
+.estnet{position:absolute;left:0;top:0;z-index:2;pointer-events:none;will-change:transform}
+.estnet>svg{position:absolute;inset:0;width:100%;height:100%}
+.innet{position:absolute}
+.innet .eball{position:absolute;inset:0;animation:plop .35s ease-out}
+.innet svg{width:100%;height:100%;animation:morph .7s cubic-bezier(.3,1.4,.5,1),wobble .8s ease-in-out .7s infinite}
+@keyframes plop{0%{transform:translateY(-30%)}70%{transform:translateY(6%)}100%{transform:none}}
+@keyframes morph{0%{transform:scale(.2) rotate(-50deg)}60%{transform:scale(1.25) rotate(10deg)}100%{transform:none}}
+@keyframes wobble{50%{transform:rotate(-8deg) translateY(-4px)}}
+.estmsg{position:absolute;left:50%;top:32%;transform:translateX(-50%);z-index:4;border-radius:28px;padding:14px 30px;text-align:center;box-shadow:0 8px 0 rgba(0,0,0,.25);font-weight:800;font-size:1.15rem;white-space:nowrap}
+.estmsg b{display:block;font-family:var(--display);font-size:clamp(1.8rem,2vw + 2vh,2.8rem);line-height:1.05}
+.estmsg .cd{display:block;font-family:var(--display);font-size:clamp(2.8rem,5vh,4rem);color:var(--sun);line-height:1}
+.estover{position:absolute;inset:0;display:grid;place-items:center;background:rgba(26,5,51,.55);z-index:5;padding:16px}
+.estcard{max-width:640px;background:#fff;color:var(--ink);border-radius:30px;padding:26px 32px;box-shadow:0 10px 0 var(--pink-deep);display:grid;justify-items:center;gap:14px;text-align:center}
+.estcard p{margin:0;font-weight:700;font-size:1.15rem}
+.estctrl{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.estctrl span{background:var(--bg-2);border-radius:999px;padding:6px 14px;font-weight:800}
+
 .sportbar{display:flex;justify-content:center;gap:12px;margin-top:8px;flex-wrap:wrap}
 .chip{background:var(--card);border-radius:999px;padding:4px 16px;font-family:var(--display);font-weight:800;font-size:1.5rem;box-shadow:0 4px 0 var(--line);font-variant-numeric:tabular-nums}
 .chip small{font-size:.9rem;color:var(--ink-soft)}
@@ -261,7 +346,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
   .label{font-size:1.15rem;margin-bottom:8px}
   .levels-head{margin-bottom:8px}
   .calm{font-size:1rem;padding:5px 8px 5px 14px}
-  .levels{grid-template-columns:repeat(3,1fr);gap:12px}
+  .levels{grid-template-columns:repeat(4,1fr);gap:10px}
   .level{padding:clamp(8px,1.4vh,14px) 8px;gap:4px;border-radius:22px;min-height:clamp(130px,26vh,300px);align-content:center;padding-top:clamp(28px,4vh,40px)}
   .level .eq{font-size:clamp(1.3rem,0.7vw + 2vh,2.6rem);flex-wrap:nowrap}
   .lv-name{font-size:.98rem}
@@ -276,7 +361,7 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
   .hs li{padding:1px 6px;gap:6px}.hs li b{font-size:1rem}
 
   /* play: question left, number pad right */
-  #play:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);gap:clamp(20px,3vw,48px);align-items:center;align-content:center}
+  #play:not([hidden]),#strat:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);gap:clamp(20px,3vw,48px);align-items:center;align-content:center}
   .playmain{min-width:0}
   .qcard{padding:clamp(12px,2.2vh,22px) 14px}
   .qcard>.eq{font-size:clamp(2.4rem,4vw + 3vh,5.4rem)}
@@ -501,6 +586,77 @@ h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.05}
     </div>
   </section>
 
+  <!-- STRATEGIMÄSTARE -->
+  <section id="strat" hidden>
+    <div class="playmain">
+      <div class="topbar">
+        <button class="iconbtn" data-act="home" aria-label="Hem">🏠</button>
+        <div class="dots" id="sDots" aria-label="Frågor"></div>
+        <span style="width:52px"></span>
+      </div>
+      <div class="stepsbar" id="sSteps"></div>
+      <div class="sportbar" id="sSport" hidden>
+        <div class="chip clock">⏱ <b id="sClock">0,0</b> <small>s</small></div>
+        <div class="chip pts"><small>Poäng</small> <b id="sScore">0</b></div>
+      </div>
+      <div class="qcard scard" id="sCard"></div>
+      <div class="feedback" id="sMsg" aria-live="polite"></div>
+    </div>
+    <div class="playside">
+      <div class="padwrap" id="spadwrap"><div class="pad" id="sPad"></div></div>
+      <p class="padhint" id="sHint"></p>
+    </div>
+  </section>
+
+  <!-- ESTIMERA MERA -->
+  <section id="est" hidden>
+    <div class="estfield" id="estField" tabindex="0" aria-label="Spelplan. Styr håven med musen, piltangenterna eller fingret.">
+      <div class="estsun"></div><div class="estfloor"></div><div class="eststars" id="estStars"></div>
+      <div class="esthud">
+        <div class="esthud-side">
+          <div style="display:flex;align-items:center;gap:10px">
+            <button class="iconbtn" id="estHome" aria-label="Hem">🏠</button>
+            <span class="esttitle">Estimera mera</span>
+          </div>
+          <div class="dots" id="estDots"></div>
+        </div>
+        <div class="estprob">
+          <div class="eq" id="estEq"></div>
+          <small>Räkna inte ut allt. Tänk smart och fånga rätt svar!</small>
+        </div>
+        <div class="esthud-side right" id="estStats">
+          <div class="estnum"><small>TID</small><b id="estClock">0,0</b></div>
+          <div class="estnum"><small>POÄNG</small><b id="estScore">0</b></div>
+        </div>
+      </div>
+      <div id="estBalls"></div>
+      <div class="estnet" id="estNet">
+        <svg viewBox="0 0 260 200" aria-hidden="true">
+          <path d="M214 52 L252 200" stroke="#C81C72" stroke-width="16" stroke-linecap="round"/>
+          <path d="M214 52 L252 200" stroke="#FF3E9A" stroke-width="8" stroke-linecap="round"/>
+          <path d="M22 36 C26 120 70 168 120 172 C170 168 214 120 218 36 Z" fill="#FFFFFF" fill-opacity="0.12"/>
+          <ellipse cx="120" cy="36" rx="98" ry="20" fill="none" stroke="#B8920F" stroke-width="10"/>
+        </svg>
+        <div class="innet" id="estInNet"></div>
+        <svg viewBox="0 0 260 200" aria-hidden="true">
+          <path d="M22 36 C26 120 70 168 120 172 C170 168 214 120 218 36" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+          <path d="M48 44 C54 110 84 150 120 160 M80 50 C84 112 100 150 120 168 M120 56 V172 M160 50 C156 112 140 150 120 168 M192 44 C186 110 156 150 120 160" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.85"/>
+          <path d="M26 72 C80 88 160 88 214 72 M36 108 C84 124 156 124 204 108 M60 142 C96 154 144 154 180 142" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.85"/>
+          <path d="M22 36 A98 20 0 0 0 218 36" fill="none" stroke="#FFE14D" stroke-width="10"/>
+        </svg>
+      </div>
+      <div class="estmsg" id="estMsg" hidden></div>
+      <div class="estover" id="estStart">
+        <div class="estcard">
+          <span class="esttitle big">Estimera mera</span>
+          <p>Tre svar regnar ner, men bara ett är rätt. Du behöver inte räkna ut allt. Tänk smart, se vilket som kan stämma och fånga det med håven!</p>
+          <div class="estctrl"><span>🖱️ Musen</span><span>⬅️➡️ Piltangenterna</span><span>👆 Fingret</span></div>
+          <button class="bigbtn" id="estGo" style="flex:none;padding:14px 44px">Starta</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PAUSE -->
   <section id="pause" hidden>
     <div class="center">
@@ -599,6 +755,8 @@ const LEVELS=[
   {id:'super',name:'Superutmaning',c:'v',emoji:'🦄',sample:[33,'×',12],helps:true,gen(){
     let a,b;if(Math.random()<.2){a=33;b=12}else{a=rnd(21,45);b=rnd(11,15)}
     return {t:[a,'×',b],ans:a*b,help:splitHelp(a,b)};}},
+  {id:'strategi',name:'Strategimästare',c:'pk',emoji:'🧠',sample:[12,'×',25],custom:'strat',tag:'din egen strategi'},
+  {id:'estimera',name:'Estimera mera',c:'nt',emoji:'🎣',sample:[8,'×',8],custom:'est',tag:'fånga rätt svar',open:true},
 ];
 function makeRound(L){const seen=new Set(),qs=[];let g=0;
   while(qs.length<ROUND&&g++<200){const q=L.gen(),k=q.t.join();if(!seen.has(k)){seen.add(k);qs.push(q)}}return qs}
@@ -617,7 +775,7 @@ function save(){
     saveTimer=setTimeout(()=>{FB.db.collection('users').doc(ME.uid).set({name:ME.name,progress:P},{merge:true}).catch(e=>console.warn('Kunde inte spara',e))},600);
   }else{try{localStorage.setItem(LOCAL_KEY,JSON.stringify(P))}catch(e){}}
 }
-const unlocked=i=>DEMO||i<P.unlocked;
+const unlocked=i=>DEMO||i<P.unlocked||!!LEVELS[i].open;
 const TIER_NAME={guld:'Guldmärke',silver:'Silvermärke',brons:'Bronsmärke'};
 function bestTier(id){const t=P.tiers[id]||{};return t.guld?'guld':t.silver?'silver':t.brons?'brons':null}
 const TROPHIES=[
@@ -712,7 +870,7 @@ function confetti(n=170){
 }
 
 /* ---------- Screens ---------- */
-function show(id){['loading','login','home','play','reward','pause'].forEach(s=>$('#'+s).hidden=s!==id);$('#foot').hidden=id==='play'||id==='loading';try{scrollTo(0,0)}catch(e){}}
+function show(id){['loading','login','home','play','strat','est','reward','pause'].forEach(s=>$('#'+s).hidden=s!==id);$('#foot').hidden=['play','strat','est','loading'].includes(id);try{scrollTo(0,0)}catch(e){}}
 function renderFoot(){
   $('#whoami').textContent=ME?`Inloggad som ${ME.name}${isAdmin()?' (admin)':''}`:(FB?'':'Sparas bara på den här datorn');
   $('#logoutBtn').hidden=!ME;
@@ -745,7 +903,7 @@ function renderHome(){
       <span class="lv-num">${i+1}</span><span class="lv-emoji">${L.emoji}</span>
       <span class="eq">${eqHTML(L.sample)}</span>
       <span class="lv-name">${L.name}</span>
-      ${L.helps?'<span class="help-tag">🛟 med hjälp</span>':''}
+      ${L.helps?'<span class="help-tag">🛟 med hjälp</span>':''}${L.tag?`<span class="help-tag new">NY · ${L.tag}</span>`:''}
       <span class="lv-meta"><span class="lv-stars">${'★'.repeat(b)}<span class="off">${'★'.repeat(5-b)}</span></span>
       ${P.sport?`<span class="lv-best">🏆 ${top?top.p:'–'}</span>`:''}</span>
       ${ok?'':'<span class="lock">🔒</span>'}</button>`;
@@ -774,7 +932,10 @@ const cur=()=>R.qs[R.i];
 const fmt=sec=>sec.toFixed(1).replace('.',',');
 function startLevel(i){
   if(!unlocked(i)){const c=document.querySelector(`.level[data-i="${i}"]`);if(c)shakeEl(c);return}
-  const L=LEVELS[i];R={level:i,qs:makeRound(L),i:0,stars:0,res:[],sport:P.sport,points:0};
+  const L=LEVELS[i];
+  if(L.custom==='strat')return startStrat(i);
+  if(L.custom==='est')return startEst(i);
+  R={level:i,qs:makeRound(L),i:0,stars:0,res:[],sport:P.sport,points:0};
   $('#sportbar').hidden=!R.sport;$('#demobar').hidden=!DEMO;$('#score').textContent='0';$('#clock').textContent='0,0';
   show('play');showQ();
 }
@@ -858,7 +1019,7 @@ function reveal(){
   setTimeout(next,2600);
 }
 function next(){if(!R||$('#play').hidden)return;R.i++;if(R.i>=ROUND)finish();else showQ()}
-setInterval(()=>{if(R&&R.sport&&R.timing&&!$('#play').hidden)$('#clock').textContent=fmt((performance.now()-R.qStart)/1000)},100);
+setInterval(()=>{if(R&&R.sport&&R.timing&&!$('#play').hidden)$('#clock').textContent=fmt((performance.now()-R.qStart)/1000);if(R&&R.kind==='strat'&&R.sport&&R.timing&&!$('#strat').hidden)$('#sClock').textContent=fmt((performance.now()-R.qStart)/1000)},100);
 
 const TROLL_SVG=`<svg viewBox="0 0 240 230" aria-hidden="true">
   <line x1="92" y1="52" x2="74" y2="14" stroke="#2E8B3E" stroke-width="6" stroke-linecap="round"/><circle cx="72" cy="12" r="10" fill="#FF3E9A"/>
@@ -873,11 +1034,11 @@ const TROLL_SVG=`<svg viewBox="0 0 240 230" aria-hidden="true">
   <ellipse cx="120" cy="192" rx="108" ry="26" fill="#7536CF"/><ellipse cx="120" cy="184" rx="108" ry="22" fill="#9B5DE5"/>
   <circle cx="40" cy="188" r="7" fill="#FFCA3A"/><circle cx="80" cy="196" r="7" fill="#FFCA3A"/><circle cx="120" cy="198" r="7" fill="#FFCA3A"/><circle cx="160" cy="196" r="7" fill="#FFCA3A"/><circle cx="200" cy="188" r="7" fill="#FFCA3A"/>
 </svg>`;
-function trollSteal(done){
+function trollSteal(done,host){
   R.busy=true;trollSound();
   const o=document.createElement('div');o.className='troll';
   o.innerHTML=TROLL_SVG+'<div class="steal">Rymdtrollet tar 5 s!</div><div class="cd">5</div>';
-  $('#padwrap').appendChild(o);
+  (host||$('#padwrap')).appendChild(o);
   let n=5;const iv=setInterval(()=>{n--;if(n>0){o.querySelector('.cd').textContent=n;tone(300,0,.1,'square',.04)}
     else{clearInterval(iv);o.classList.add('leave');setTimeout(()=>{o.remove();if(R){R.busy=false;done()}},450)}},1000);
 }
@@ -926,6 +1087,293 @@ function finish(){
   show('reward');fanfare();confetti();
 }
 
+/* =========================================================
+   Strategimästare: the child writes their own strategy
+   ========================================================= */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const prettyRow=t=>t.replace(/×/g,' × ');
+function rowValue(t){if(!/^\d+(×\d+)*$/.test(t))return null;return t.split('×').reduce((p,x)=>p*(+x),1)}
+function startStrat(i){
+  const qs=[],seen=new Set();let g=0;
+  while(qs.length<ROUND&&g++<300){
+    const a=Math.random()<.55?rnd(11,19):pick([18,19,21,29,31]);
+    const b=Math.random()<.5?rnd(4,9):pick([12,15,20,25]);
+    const k=a+'x'+b;if(seen.has(k)||a*b>800)continue;seen.add(k);qs.push(Math.random()<.5?[a,b]:[b,a]);
+  }
+  R={level:i,kind:'strat',qs,i:0,stars:0,res:[],sport:P.sport,points:0};
+  $('#sSport').hidden=!R.sport;$('#sScore').textContent='0';$('#sClock').textContent='0,0';
+  show('strat');stratQ();
+}
+function stratQ(){
+  Object.assign(R,{phase:'choose',rows:[{sign:'+',text:''},{sign:null,text:''}],active:0,lock:[],step:0,input:'',msg:'',bad:false,
+    tries:0,clean:true,busy:false,qStart:performance.now(),timing:true,via:''});
+  renderStrat();
+}
+const stratProb=()=>R.qs[R.i];
+function stratAdvance(step){step++;while(step<R.lock.length&&!R.lock[step].needs)step++;return step}
+function renderStrat(){
+  const [a,b]=stratProb(),ph=R.phase;
+  $('#sDots').innerHTML=Array.from({length:ROUND},(_,k)=>k<R.res.length?`<span class="dot ${R.res[k]?'':'miss'}">${R.res[k]?'★':'•'}</span>`:`<span class="dot ${k===R.i?'now':''}"></span>`).join('');
+  const labels=ph==='direct'?[['1 Välj sätt',0],['2 Räkna',2],['Klart',3]]:[['1 Välj sätt',0],['2 Strategi',1],['3 Räkna',2],['Klart',3]];
+  const at={choose:0,plan:1,solve:2,direct:2,done:3}[ph];
+  $('#sSteps').innerHTML=labels.map(([l,p])=>`<span class="${p<at?'done':p===at?'now':''}">${l}</span>`).join('');
+  const big=ph==='choose'||ph==='direct'||ph==='done';
+  const box=ph==='done'?`<span class="box right">${a*b}</span>`:ph==='direct'?`<span class="box live">${R.input}</span>`:'<span class="box wait">?</span>';
+  let h=`<div class="eq${big?'':' sm'}">${eqHTML([a,'×',b])}<span class="op">=</span>${box}</div>`;
+  if(ph==='choose'){
+    h+=`<p class="steps-lead">Hur vill du göra?</p><div class="choose2">
+      <button class="bigchoice" data-act="plan"><span class="e">✂️</span><b>Dela upp</b><small>Hitta på en egen strategi</small></button>
+      <button class="bigchoice blue" data-act="direct"><span class="e">⚡</span><b>Räkna direkt</b><small>Jag kan det i huvudet</small></button></div>`;
+  }else if(ph==='plan'){
+    h+=`<p class="steps-lead">Skriv din strategi, en rad i taget</p><div class="srows">`+R.rows.map((r,i)=>{
+      const on=i===R.active;
+      return `<div class="srow">${i===0?'<span class="spacer"></span>':`<span class="signpick ${r.sign?'':'pickme'}"><button class="signbtn sgn-plus ${r.sign==='+'?'on':''}" data-act="setsign" data-s="+" data-i="${i}" aria-label="Plus på rad ${i+1}" aria-pressed="${r.sign==='+'}">+</button><button class="signbtn sgn-minus ${r.sign==='−'?'on':''}" data-act="setsign" data-s="−" data-i="${i}" aria-label="Minus på rad ${i+1}" aria-pressed="${r.sign==='−'}">−</button></span>`}
+        <button class="sbox ${on?'on':''} ${r.text?'':'empty'}" data-act="row" data-i="${i}" aria-label="Rad ${i+1}">${r.text?prettyRow(r.text):(on?'':'tryck här')}</button>
+        ${R.rows.length>2?`<button class="rmbtn" data-act="rm" data-i="${i}" aria-label="Ta bort rad ${i+1}">✕</button>`:''}</div>`;
+    }).join('')+`</div><div class="sactions"><button class="addrow" data-act="addrow">+ ny rad</button><button class="checkbtn" data-act="check">Kontrollera strategi</button></div>`;
+  }else if(ph==='solve'){
+    h+=`<div class="smart">⭐ Smart strategi! Räkna en rad i taget.</div><div class="srows">`+R.lock.map((r,i)=>{
+      const done=!r.needs||i<R.step,now=r.needs&&i===R.step;
+      return `<div class="solverow ${now?'now':done?'done':'wait'}"><span class="snum">${done?'✓':i+1}</span><span class="eq">${i?`<span class="op">${r.sign}</span>`:''}${eqHTML(r.text.split('×').flatMap((x,j)=>j?['×',+x]:[+x]))}${r.needs?`<span class="op">=</span><span class="box ${done?'right':now?'live':''}">${done?r.v:now?R.input:''}</span>`:''}</span></div>`;
+    }).join('');
+    const now=R.step>=R.lock.length;
+    const comb=R.lock.flatMap((r,i)=>i?[r.sign,r.v]:[r.v]);
+    h+=`<div class="solverow comb ${now?'now':'wait'}"><span class="snum" style="background:var(--y);color:var(--ink)">=</span><span class="eq">${now?eqHTML(comb)+'<span class="op">=</span><span class="box live">'+R.input+'</span>':'<span class="op">Sätt ihop det</span>'}</span></div></div>`;
+  }else if(ph==='direct'){
+    h+=`<p class="words">Skriv svaret med knapparna.</p><div style="text-align:center"><button class="textlink" data-act="plan">Gör en strategi i stället</button></div>`;
+  }else if(ph==='done'){
+    const strat=R.lock.map((r,i)=>(i?` ${r.sign} `:'')+prettyRow(r.text)).join('');
+    h+=`<p class="steps-lead" style="color:var(--gt)">Rätt! Du är en strategimästare!</p><p class="words">${R.via==='plan'?'Din strategi: '+strat:'Du räknade direkt i huvudet!'}</p>`;
+  }
+  $('#sCard').innerHTML=h;
+  const keys=ph==='plan'?['1','2','3','4','5','6','7','8','9','×','0','del']:['1','2','3','4','5','6','7','8','9','del','0','ok'];
+  $('#sPad').innerHTML=keys.map(k=>`<button class="key ${k==='del'?'del':k==='ok'?'ok':k==='×'?'times':''}" data-k="${k}" aria-label="${k==='del'?'Sudda':k==='ok'?'Klar':k==='×'?'gånger':k}">${k==='del'?'⌫':k==='ok'?'✓':k}</button>`).join('');
+  $('#spadwrap').style.opacity=(ph==='plan'||ph==='solve'||ph==='direct')?1:.4;
+  $('#sHint').textContent={choose:'Välj först hur du vill göra.',plan:'Skriv till exempel 10 × 25. Välj + eller − framför varje ny rad.',solve:'Skriv svaret på raden som blinkar.',direct:'Skriv hela svaret.',done:'Klart!'}[ph];
+  const m=$('#sMsg');m.textContent=R.msg;m.className='feedback '+(R.msg?(R.bad?'nej':'ok'):'');
+}
+function stratCheck(){
+  const [a,b]=stratProb();
+  for(let i=1;i<R.rows.length;i++){
+    if(!R.rows[i].sign){R.msg=`Välj + eller − på rad ${i+1}.`;R.bad=true;R.active=i;buzz();return renderStrat()}
+  }
+  for(let i=0;i<R.rows.length;i++){
+    if(rowValue(R.rows[i].text)===null){R.msg=R.rows[i].text?`Rad ${i+1} är inte klar.`:`Rad ${i+1} är tom. Skriv något eller ta bort den.`;R.bad=true;R.active=i;buzz();return renderStrat()}
+  }
+  const total=R.rows.reduce((t,r,i)=>{const v=rowValue(r.text);return t+(i&&r.sign==='−'?-v:v)},0);
+  if(total!==a*b){R.msg=`Strategin blir inte samma sak som ${a} × ${b}. Titta en gång till!`;R.bad=true;buzz();shakeEl($('#sCard'));return renderStrat()}
+  R.lock=R.rows.map((r,i)=>({sign:i?r.sign:'+',text:r.text,v:rowValue(r.text),needs:r.text.includes('×')}));
+  R.phase='solve';R.step=stratAdvance(-1);R.input='';R.tries=0;R.msg='Smart strategi!';R.bad=false;ding();renderStrat();
+}
+function stratWrong(after){
+  R.tries++;R.input='';buzz();renderStrat();
+  if(R.sport){trollSteal(()=>{after();},$('#spadwrap'))}else{shakeEl($('#sCard'));after()}
+}
+function stratDone(via,shown){
+  const [a,b]=stratProb();
+  R.busy=true;R.timing=false;R.phase='done';R.via=via;R.input='';R.msg='';
+  const star=R.clean&&!shown;if(star)R.stars++;R.res.push(star);
+  if(R.sport){const sec=(performance.now()-R.qStart)/1000,pts=Math.max(10,Math.round(100-sec));R.points+=pts;$('#sScore').textContent=R.points;$('#sClock').textContent=fmt(sec);R.msg=`+${pts} poäng`;}
+  renderStrat();ding();confetti(40);
+  setTimeout(()=>{if(!R||R.kind!=='strat'||$('#strat').hidden)return;R.i++;if(R.i>=ROUND)finish();else stratQ()},2600);
+}
+function stratKey(k){
+  if(!R||R.kind!=='strat'||R.busy)return;
+  const ph=R.phase,[a,b]=stratProb();
+  if(ph==='plan'){
+    if(k==='ok')return stratCheck();
+    const row=R.rows[R.active];let t=row.text;
+    if(k==='del')t=t.slice(0,-1);
+    else if(k==='×'){if(t&&!t.endsWith('×'))t+='×'}
+    else if(t.length<9)t=(/(^|×)0$/.test(t)?t.slice(0,-1):t)+k;
+    row.text=t;R.msg='';return renderStrat();
+  }
+  if(ph!=='solve'&&ph!=='direct')return;
+  if(k==='×')return;
+  if(k==='del'){R.input=R.input.slice(0,-1);return renderStrat()}
+  if(k!=='ok'){if(R.input.length<5)R.input=(R.input==='0'?'':R.input)+k;R.msg='';return renderStrat()}
+  if(!R.input)return;
+  const v=+R.input;
+  if(ph==='direct'){
+    if(v===a*b)return stratDone('direct');
+    return stratWrong(()=>{
+      if(R.tries>=3){R.phase='plan';R.clean=false;R.tries=0;R.msg='Prova att göra en strategi!';R.bad=false}
+      else{R.msg='Inte riktigt. Försök igen!';R.bad=true}
+      renderStrat();
+    });
+  }
+  const want=R.step<R.lock.length?R.lock[R.step].v:a*b;
+  if(v===want){
+    R.tries=0;R.input='';
+    if(R.step>=R.lock.length)return stratDone('plan');
+    R.step=stratAdvance(R.step);R.msg=R.step>=R.lock.length?'Rätt! Sätt nu ihop det.':'Rätt! Nästa rad.';R.bad=false;blip();return renderStrat();
+  }
+  stratWrong(()=>{
+    if(R.tries>=3){
+      R.clean=false;R.tries=0;R.bad=false;R.msg=`Det blir ${want}.`;
+      if(R.step>=R.lock.length)return stratDone('plan',true);
+      R.step=stratAdvance(R.step);
+    }else{R.msg=R.step>=R.lock.length?'Nästan! Titta på plus och minus.':'Nästan! Försök igen.';R.bad=true}
+    renderStrat();
+  });
+}
+function stratKeyboard(e){
+  if(/^[0-9]$/.test(e.key))stratKey(e.key);
+  else if(e.key==='Backspace')stratKey('del');
+  else if(e.key==='Enter')stratKey('ok');
+  else if(e.key==='*'||e.key==='x'||e.key==='X')stratKey('×');
+  else if((e.key==='-'||e.key==='+')&&R&&R.phase==='plan'&&R.active>0){R.rows[R.active].sign=e.key==='-'?'−':'+';renderStrat()}
+}
+$('#strat').addEventListener('click',e=>{
+  const k=e.target.closest('[data-k]');if(k)return stratKey(k.dataset.k);
+  const b=e.target.closest('[data-act]');if(!b||!R)return;
+  const i=+b.dataset.i;
+  switch(b.dataset.act){
+    case 'home':document.querySelectorAll('.troll').forEach(t=>t.remove());R=null;return renderHome();
+    case 'plan':if(R.busy)return;Object.assign(R,{phase:'plan',rows:[{sign:'+',text:''},{sign:null,text:''}],active:0,input:'',msg:'',bad:false});break;
+    case 'direct':Object.assign(R,{phase:'direct',input:'',msg:'',bad:false});break;
+    case 'row':R.active=i;break;
+    case 'setsign':R.rows[i].sign=b.dataset.s;R.active=i;R.msg='';break;
+    case 'rm':R.rows.splice(i,1);R.active=Math.min(R.active,R.rows.length-1);break;
+    case 'addrow':if(R.rows.length>=5){R.msg='Högst 5 rader.';R.bad=true;break}R.rows.push({sign:null,text:''});R.active=R.rows.length-1;R.msg='';break;
+    case 'check':return stratCheck();
+  }
+  renderStrat();
+});
+
+/* =========================================================
+   Estimera mera: catch the right answer with the net
+   ========================================================= */
+const EST_PROBS=[[8,'×',8],[6,'×',7],[12,'×',9],[25,'+',38],[9,'×',9],[48,'÷',6],[7,'×',8],[45,'+',47],[13,'×',7],[23,'+',48],[10,'×',50],[20,'×',30],[15,'×',4],[25,'×',4],[11,'×',11],[36,'÷',4]];
+const EST_COLS=[{bg:'#FF3E9A',fg:'#FFFFFF'},{bg:'#3FE0FF',fg:'#24083F'},{bg:'#FFE14D',fg:'#24083F'}];
+const EST_TROLL='<svg viewBox="0 0 64 64" aria-hidden="true"><line x1="24" y1="14" x2="17" y2="3" stroke="#2E8B3E" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="3" r="3.5" fill="#FF3E9A"/><line x1="40" y1="14" x2="47" y2="3" stroke="#2E8B3E" stroke-width="3" stroke-linecap="round"/><circle cx="48" cy="3" r="3.5" fill="#FF3E9A"/><path d="M13 30 L1 20 L12 41 Z M51 30 L63 20 L52 41 Z" fill="#4CC25C"/><ellipse cx="32" cy="36" rx="21" ry="24" fill="#5BD16B"/><circle cx="23" cy="30" r="6.5" fill="#fff"/><circle cx="41" cy="30" r="6.5" fill="#fff"/><circle cx="32" cy="21" r="5" fill="#fff"/><circle cx="24" cy="31" r="3" fill="#2A1030"/><circle cx="40" cy="31" r="3" fill="#2A1030"/><circle cx="32" cy="22" r="2.2" fill="#2A1030"/><path d="M20 43 Q32 57 44 43 Q32 48 20 43 Z" fill="#2A1030"/><path d="M25 45 L27 50 L29 46 Z M35 46 L37 50 L39 45 Z" fill="#fff"/></svg>';
+const estCalc=p=>calc(p[0],p[1],p[2]);
+// Wrong answers look as "real" as the right one: round only when the right answer is round.
+function estFake(ans,f,up){
+  const step=ans%10===0?10:ans%5===0?5:1;
+  let v=Math.round(ans*f);
+  if(step>1)v=Math.round(v/step)*step;
+  else{let k=1;while(v%5===0&&k<8){v+=(k%2?1:-2)*(up?1:-1);k++}}
+  if(v===ans)v=up?ans+step*Math.max(2,Math.round(ans*.6/step)):ans-step*Math.max(1,Math.round(ans*.4/step));
+  return Math.max(step,v);
+}
+function estOptions(ans){
+  const lo=estFake(ans,.5+Math.random()*.1,false);
+  let hi=estFake(ans,1.65+Math.random()*.2,true);
+  if(hi===lo||hi===ans)hi=ans*2+(ans%5?1:0);
+  return [{v:ans,ok:true},{v:lo===ans?Math.max(1,Math.round(ans/2)):lo,ok:false},{v:hi,ok:false}];
+}
+let estRaf=null,estDir=0,estLast=0;
+function estDims(){
+  const f=$('#estField'),W=f.clientWidth,H=f.clientHeight;
+  const r=Math.max(38,Math.min(64,H*.075,W*.06));
+  const nb=r*4.1,nbh=nb*200/260;
+  return {W,H,r,nb,nbh,netTop:H-nbh+4,rim:H-nbh+4+nbh*36/200,k:nb/260};
+}
+function startEst(i){
+  if(!$('#estStars').childElementCount)$('#estStars').innerHTML=Array.from({length:26},(_,j)=>`<span style="left:${(j*37)%97+1}%;top:${(j*23)%55+14}%;width:${j%3?2:4}px;height:${j%3?2:4}px;opacity:${j%2?.8:.45}"></span>`).join('');
+  R={level:i,kind:'est',qs:shuffle(EST_PROBS).slice(0,ROUND),i:0,stars:0,res:[],sport:P.sport,points:0,phase:'start',items:[],netX:null,timers:[],tries:0,caught:null,troll:false,clock:0,cd:0,msg:null};
+  $('#estBalls').innerHTML='';$('#estStart').hidden=false;
+  show('est');estRender();$('#estField').focus();
+  if(!estRaf){estLast=0;estRaf=requestAnimationFrame(estTick)}
+}
+function estLater(fn,ms){R.timers.push(setTimeout(()=>{if(R&&R.kind==='est'&&!$('#est').hidden)fn()},ms))}
+function estDrop(){
+  const d=estDims(),opts=shuffle(R.opts),lanes=shuffle([.2,.5,.8]),offs=shuffle([0,1.4,2.8]);
+  $('#estBalls').innerHTML='';
+  R.items=opts.map((o,j)=>{
+    const el=document.createElement('div');el.className='eball';
+    const c=EST_COLS[j];el.style.cssText=`width:${d.r*2}px;height:${d.r*2}px;background:${c.bg};color:${c.fg};font-size:${d.r*(String(o.v).length>2?.62:.78)}px;box-shadow:0 0 26px ${c.bg}`;
+    el.textContent=o.v;$('#estBalls').appendChild(el);
+    return {v:o.v,ok:o.ok,col:c,x:d.W*lanes[j],y:-d.r-offs[j]*d.r,el,gone:false};
+  });
+}
+function estAsk(i){
+  R.i=i;const p=R.qs[i];R.opts=estOptions(estCalc(p));
+  Object.assign(R,{phase:'play',tries:0,qStart:performance.now(),clock:0,caught:null,troll:false,msg:null});
+  estDrop();estRender();
+}
+function estRetry(){Object.assign(R,{phase:'play',caught:null,troll:false,msg:null});estDrop();estRender()}
+function estNext(){if(R.i+1>=ROUND){estStop();finish();return}estAsk(R.i+1)}
+function estGiveUp(){
+  const ans=estCalc(R.qs[R.i]);
+  Object.assign(R,{phase:'shown',caught:null,troll:false,msg:{title:'Svaret är '+ans,text:'Vi tar nästa!',bg:'#7536CF'}});
+  R.res.push(false);estRender();estLater(estNext,2200);
+}
+function estStop(){if(R&&R.timers)R.timers.forEach(clearTimeout)}
+function estCatch(it,now){
+  const p=R.qs[R.i],ans=estCalc(p);
+  it.el.remove();R.items=R.items.filter(x=>x!==it);R.caught=it;
+  if(it.ok){
+    R.phase='caught';R.res.push(true);R.stars++;
+    let text=`${p[0]} ${p[1]} ${p[2]} = ${ans}`;
+    if(R.sport){const sec=(now-R.qStart)/1000,pts=Math.max(10,Math.round(100-2*sec));R.clock=sec;R.points+=pts;text=`+${pts} poäng · `+text}
+    R.msg={title:'Snabbt svarat!',text,bg:'#14935B'};ding();confetti(40);estRender();estLater(estNext,2000);return;
+  }
+  R.tries++;const title=it.v<ans?`${it.v} är för litet!`:`${it.v} är för stort!`;
+  const after=()=>{if(R.tries>=3)estGiveUp();else estRetry()};
+  if(!R.sport){R.phase='wrong';R.msg={title,text:'Talen kommer igen.',bg:'#7536CF'};buzz();estRender();estLater(after,1800);return}
+  R.phase='troll';R.troll=true;R.cd=5;R.msg={title,text:'Rymdtrollet tar 5 sekunder!',bg:'#C81C72',cd:true};trollSound();estRender();
+  [1,2,3,4].forEach(n=>estLater(()=>{R.cd=5-n;tone(300,0,.1,'square',.04);estRender()},n*1000));
+  estLater(after,5000);
+}
+function estTick(t){
+  if($('#est').hidden||!R||R.kind!=='est'){estRaf=null;return}
+  estRaf=requestAnimationFrame(estTick);
+  const dt=Math.min(.05,estLast?(t-estLast)/1000:0);estLast=t;
+  const d=estDims();
+  if(R.netX==null)R.netX=d.W/2;
+  if(estDir)R.netX+=estDir*Math.max(700,d.W*.8)*dt;
+  R.netX=Math.max(d.nb/2,Math.min(d.W-d.nb/2,R.netX));
+  const net=$('#estNet');net.style.width=d.nb+'px';net.style.height=d.nbh+'px';net.style.transform=`translate(${R.netX-d.nb*120/260}px,${d.netTop}px)`;
+  if(['start','end'].includes(R.phase))return;
+  const speed=(d.rim+d.r+60)/(R.sport?8:10);
+  for(const it of R.items){
+    if(it.gone)continue;it.y+=speed*dt;
+    if(it.y-d.r>d.H){it.gone=true;it.el.remove();continue}
+    it.el.style.transform=`translate(${it.x-d.r}px,${it.y-d.r}px)`;
+  }
+  if(R.sport&&(R.phase==='play'||R.phase==='troll')){R.clock=(t-R.qStart)/1000;$('#estClock').textContent=fmt(R.clock)}
+  if(R.phase!=='play')return;
+  for(const it of R.items){
+    if(!it.gone&&it.y+d.r*.4>=d.rim&&it.y<=d.rim+d.nbh*.25&&Math.abs(it.x-R.netX)<d.nb*98/260-d.r*.15)return estCatch(it,t);
+  }
+  if(R.items.every(it=>it.gone)){
+    R.tries++;
+    if(R.tries>=3)return estGiveUp();
+    R.phase='miss';R.msg={title:'Den missade du!',text:'Talen kommer igen.',bg:'#7536CF'};estRender();estLater(estRetry,1300);
+  }
+}
+function estRender(){
+  if(!R||R.kind!=='est')return;
+  const d=estDims(),p=R.qs[Math.min(R.i,ROUND-1)];
+  $('#estDots').innerHTML=Array.from({length:ROUND},(_,k)=>k<R.res.length?`<span class="dot ${R.res[k]?'':'miss'}">${R.res[k]?'★':'•'}</span>`:`<span class="dot ${k===R.i&&R.phase!=='start'?'now':''}"></span>`).join('');
+  $('#estEq').innerHTML=eqHTML(p)+'<span class="op">=</span><span class="op" style="color:var(--line)">?</span>';
+  $('#estStats').style.visibility=R.sport?'visible':'hidden';
+  $('#estScore').textContent=R.points;$('#estClock').classList.toggle('hot',R.phase==='troll');
+  if(!R.sport||R.phase!=='play')$('#estClock').textContent=fmt(R.clock);
+  const inNet=$('#estInNet');
+  if(R.troll){inNet.style.cssText=`left:${62*d.k}px;top:${30*d.k}px;width:${116*d.k}px;height:${116*d.k}px`;if(!inNet.dataset.troll){inNet.innerHTML=EST_TROLL;inNet.dataset.troll='1'}}
+  else if(R.caught){inNet.dataset.troll='';const c=R.caught.col;inNet.style.cssText=`left:${70*d.k}px;top:${52*d.k}px;width:${100*d.k}px;height:${100*d.k}px`;
+    inNet.innerHTML=`<div class="eball" style="background:${c.bg};color:${c.fg};font-size:${38*d.k}px">${R.caught.v}</div>`}
+  else{inNet.dataset.troll='';inNet.innerHTML=''}
+  const m=$('#estMsg');m.hidden=!R.msg;
+  if(R.msg){m.style.background=R.msg.bg;m.innerHTML=`<b>${R.msg.title}</b>${R.msg.text}${R.msg.cd?`<span class="cd">${R.cd}</span>`:''}`}
+  $('#estStart').hidden=R.phase!=='start';
+}
+function estStart(){if(!R||R.kind!=='est'||R.phase!=='start')return;estAsk(0);$('#estField').focus()}
+function estKeyDown(e){
+  if(e.key==='ArrowLeft'){estDir=-1;e.preventDefault()}
+  else if(e.key==='ArrowRight'){estDir=1;e.preventDefault()}
+  else if((e.key==='Enter'||e.key===' ')&&R&&R.phase==='start'){e.preventDefault();estStart()}
+}
+document.addEventListener('keyup',e=>{if((e.key==='ArrowLeft'&&estDir<0)||(e.key==='ArrowRight'&&estDir>0))estDir=0});
+function estPointer(e){if(!R||R.kind!=='est')return;const r=$('#estField').getBoundingClientRect();R.netX=e.clientX-r.left}
+$('#estField').addEventListener('pointermove',estPointer);
+$('#estField').addEventListener('pointerdown',estPointer);
+$('#estGo').onclick=estStart;
+$('#estHome').onclick=()=>{estStop();R=null;renderHome()};
+
 /* ---------- Events ---------- */
 $('#levels').addEventListener('click',e=>{const b=e.target.closest('.level');if(b)startLevel(+b.dataset.i)});
 $('#calmBtn').onclick=()=>{P.sport=!P.sport;save();renderHome()};
@@ -955,6 +1403,8 @@ $('#logoutBtn').onclick=()=>{if(FB)FB.auth.signOut()};
 $('#loginForm').addEventListener('submit',e=>{e.preventDefault();doAuth(false)});
 $('#signupBtn').onclick=()=>doAuth(true);
 document.addEventListener('keydown',e=>{
+  if(!$('#strat').hidden)return stratKeyboard(e);
+  if(!$('#est').hidden)return estKeyDown(e);
   if($('#play').hidden)return;
   if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key==='Backspace')press('del');else if(e.key==='Enter')press('ok');
 });
