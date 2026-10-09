@@ -75,3 +75,7 @@ Kids have no real email, so Firebase's "reset password" email can't reach them. 
 ## Demo mode
 
 The small "Demoläge för vuxna" link at the bottom of the home page unlocks all levels and shows "Svara rätt" / "Svara fel" buttons in the game. Nothing played in demo mode is saved. The setting is remembered per browser.
+
+## Test version
+
+`public/test/index.html` is a test build with the new modes (Strategimästare and Estimera mera). It is live at `https://snurras.github.io/sportmatte/test/`, has every level unlocked, and saves only in the browser it is played in. It never touches the real accounts or the shared scoreboard.
